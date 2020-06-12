@@ -1,0 +1,11 @@
+```set template default.html```
+```set title Map.gml```
+```gmlapi fnames2```
+```set autoapi ext```
+```set mainclass boxtt```
+```set intro
+This is a "cheat sheet" for Map.gml extension by YellowAfterlife.\
+The extension can be found on
+[itch.io](https://yellowafterlife.itch.io/map-gml)
+or [GitHub](https://github.com/GameMakerDiscord/Map.gml)
+```
