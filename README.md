@@ -38,3 +38,7 @@ for (var i = 0; i < 200; i++) h.set(i, "$" + string(i));
 ```
 
 License: MIT
+
+## Performance
+
+It is hard to reliably measure performance since 2.3 is still in beta, but the general intent is to offer a slightly nicer alternative to `variable_struct_` functions, which only support string keys and are not openly intended for use as hashtables.
