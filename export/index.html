@@ -360,49 +360,142 @@ Click on sections to expand/collapse them.<br>Quick display controls: <a href="#
 &middot; <a href="#" onclick="opt_all(); return false">Everything</a>
 &middot; <label for="night">Toggle night mode</label><br/>
 </p><div id="doc">
-<!--<doc--><div class="item"><a class="header" id="Map" href="#Map" title="(permalink)">Map</a><div class="content"><div class="item"><a class="header" id="Map_new" href="#Map_new" title="(permalink)">new Map(?initialSize)</a><div class="content"><p>
+<!--<doc--><div class="item"><a class="header" id="LightMap" href="#LightMap" title="(permalink)">LightMap</a><div class="content"><p>
+A very simple wrapper around <tt>variable_struct_</tt> functions.
+ 
+</p><div class="item empty"><a class="header" id="LightMap_new" href="#LightMap_new" title="(permalink)">new LightMap()</a></div><div class="item"><a class="header" id="LightMap_copy" href="#LightMap_copy" title="(permalink)">copy()<span class="ret-arrow">&#10140;</span>LightMap</a><div class="content"><p>
+Returns a shallow copy of this structure.
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="LightMap_empty" href="#LightMap_empty" title="(permalink)">empty()<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+
+Returns whether this structure contains no key-value pairs.
+	 
+</p></div></div><div class="item"><a class="header" id="LightMap_size" href="#LightMap_size" title="(permalink)">size()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
+ Returns the number of key-value pairs in this structure. 
+</p></div></div><hr/><div class="item"><a class="header" id="LightMap_exists" href="#LightMap_exists" title="(permalink)">exists(key)<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+
+Returns whether the given key exists in this structure.
+	 
+</p></div></div><div class="item"><a class="header" id="LightMap_get" href="#LightMap_get" title="(permalink)">get(key)<span class="ret-arrow">&#10140;</span>?value</a><div class="content"><p>
+Retrieves a value for the specified key, or <tt>undefined</tt> if it did not exist.
+	 
+</p></div></div><div class="item"><a class="header" id="LightMap_set" href="#LightMap_set" title="(permalink)">set(key, val)</a><div class="content"><p>
+Adds a new key-value pair of replaces an existing one.
+	 
+</p></div></div><div class="item"><a class="header" id="LightMap_replace" href="#LightMap_replace" title="(permalink)">replace(key, val)<span class="ret-arrow">&#10140;</span>replaced?</a><div class="content"><p>
+Attempts to replace a value by a new one.
+</p><p>
+Returns <tt>true</tt> if the value was replaced
+or <tt>false</tt> if the key did not exist in this structure.
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="LightMap_keys" href="#LightMap_keys" title="(permalink)">keys()<span class="ret-arrow">&#10140;</span>array&lt;string&gt;</a><div class="content"><p>
+
+Returns an array of keys in this structure.<br/>Not ordered in a specific way, but consistent with <a href="#LightMap_values">values</a>.
+	 
+</p></div></div><div class="item"><a class="header" id="LightMap_values" href="#LightMap_values" title="(permalink)">values()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
+Returns an array of values in this structure.<br/>Not ordered in a specific way, but consistent with <a href="#LightMap_keys">keys</a>.
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="LightMap_toString" href="#LightMap_toString" title="(permalink)">toString()<span class="ret-arrow">&#10140;</span>string</a><div class="content"><p>
+
+Returns a string representation of this structure.
+	 
+</p></div></div></div></div><div class="item"><a class="header" id="StructMap" href="#StructMap" title="(permalink)">StructMap</a><div class="content"><p>
+A wrapper around <tt>variable_struct_</tt> functions that supports key-value pair "removal"
+(by storing a special value in "unused" pairs and accounting for these).
+ 
+</p><div class="item empty"><a class="header" id="StructMap_new" href="#StructMap_new" title="(permalink)">new StructMap()</a></div><div class="item"><a class="header" id="StructMap_copy" href="#StructMap_copy" title="(permalink)">copy()<span class="ret-arrow">&#10140;</span>StructMap</a><div class="content"><p>
+Returns a shallow copy of this structure.
+The copy will only contain the fields that have not been marked as "unused".
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_clear" href="#StructMap_clear" title="(permalink)">clear()</a><div class="content"><p>
+Marks all key-value pairs in this structure as "unused".
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="StructMap_empty" href="#StructMap_empty" title="(permalink)">empty()<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+Returns whether this structure contains no used key-value pairs.
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_size" href="#StructMap_size" title="(permalink)">size()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
+Returns the number of key-value pairs in this structure, excluding ones marked as unused.
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="StructMap_exists" href="#StructMap_exists" title="(permalink)">exists(key)<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+
+Returns whether the given key exists in this structure.
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_get" href="#StructMap_get" title="(permalink)">get(key)<span class="ret-arrow">&#10140;</span>?value</a><div class="content"><p>
+Retrieves a value for the specified key, or <tt>undefined</tt> if it did not exist.
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_set" href="#StructMap_set" title="(permalink)">set(key, val)</a><div class="content"><p>
+Adds a new key-value pair of replaces an existing one.
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_replace" href="#StructMap_replace" title="(permalink)">replace(key, val)<span class="ret-arrow">&#10140;</span>replaced?</a><div class="content"><p>
+Attempts to replace a value by a new one.
+</p><p>
+Returns <tt>true</tt> if the value was replaced
+or <tt>false</tt> if the key did not exist in this structure.
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_remove" href="#StructMap_remove" title="(permalink)">remove(key)<span class="ret-arrow">&#10140;</span>removed?</a><div class="content"><p>
+Attempts to remove a value from the structure, marking it as "unused".
+</p><p>
+Returns whether the value was present (and thus was removed).
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="StructMap_keys" href="#StructMap_keys" title="(permalink)">keys(?copy)<span class="ret-arrow">&#10140;</span>array&lt;string&gt;</a><div class="content"><p>
+Returns an array of keys in this structure.<br/>Not ordered in a specific way, but consistent with <a href="#StructMap_values">values</a>.
+</p><p>
+If the optional <tt>copy</tt> parameter is set to <tt>false</tt> (default is <tt>true</tt>),
+the function will return a cached array where possible
+- good if you don't intend to modify the array!
+	 
+</p></div></div><div class="item"><a class="header" id="StructMap_values" href="#StructMap_values" title="(permalink)">values()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
+Returns an array of values in this structure.<br/>Not ordered in a specific way, but consistent with <a href="#StructMap_keys">keys</a>.
+	 
+</p></div></div><hr/><div class="item"><a class="header" id="StructMap_toString" href="#StructMap_toString" title="(permalink)">toString()<span class="ret-arrow">&#10140;</span>string</a><div class="content"><p>
+
+Returns a string representation of this structure, excluding unused key-value pairs.
+	 
+</p></div></div></div></div><div class="item"><a class="header" id="HashMap" href="#HashMap" title="(permalink)">HashMap</a><div class="content"><div class="item"><a class="header" id="HashMap_new" href="#HashMap_new" title="(permalink)">new HashMap(?initialSize)</a><div class="content"><p>
 Creates a new map with specified initial capacity.
 </p><p>
 Default is 256, but you may make it lower if you know the approximate number of keys
-(check whether the map expands using <a href="#Map_capacity">capacity</a>).
+(check whether the map expands using <a href="#HashMap_capacity">capacity</a>).
 	 
-</p></div></div><div class="item"><a class="header" id="Map_clear" href="#Map_clear" title="(permalink)">clear()</a><div class="content"><p>
+</p></div></div><div class="item"><a class="header" id="HashMap_copy" href="#HashMap_copy" title="(permalink)">copy()<span class="ret-arrow">&#10140;</span></a><div class="content"><p>
+Returns a shallow copy of this map.
+	 
+</p></div></div><div class="item"><a class="header" id="HashMap_clear" href="#HashMap_clear" title="(permalink)">clear()</a><div class="content"><p>
 Removes all key-value pairs from this map.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_size" href="#Map_size" title="(permalink)">size()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
+</p></div></div><hr/><div class="item"><a class="header" id="HashMap_empty" href="#HashMap_empty" title="(permalink)">empty()<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+ Returns whether this map contains no key-value pairs. 
+</p></div></div><div class="item"><a class="header" id="HashMap_size" href="#HashMap_size" title="(permalink)">size()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
  Returns the current number of key-value pairs in the map. 
-</p></div></div><div class="item"><a class="header" id="Map_capacity" href="#Map_capacity" title="(permalink)">capacity()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
+</p></div></div><div class="item"><a class="header" id="HashMap_capacity" href="#HashMap_capacity" title="(permalink)">capacity()<span class="ret-arrow">&#10140;</span>int</a><div class="content"><p>
 Returns the current map capacity - that is,
 how many entries do the internal arrays hold.
 A map is resized whenever size reaches half of capacity
 or if a key-value pair cannot be fit due to a sufficient number of collisions.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_copy" href="#Map_copy" title="(permalink)">copy()<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
-Returns a shallow copy of this map.
+</p></div></div><hr/><div class="item"><a class="header" id="HashMap_exists" href="#HashMap_exists" title="(permalink)">exists(key)<span class="ret-arrow">&#10140;</span></a><div class="content"><p>
+Returns whether a key-value exists for the given key.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_get" href="#Map_get" title="(permalink)">get(key)<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
+</p></div></div><div class="item"><a class="header" id="HashMap_get" href="#HashMap_get" title="(permalink)">get(key)<span class="ret-arrow">&#10140;</span></a><div class="content"><p>
 Returns a value for the given key, or,
 if there is no such key-value pair,
 	 
-</p></div></div><div class="item"><a class="header" id="Map_exists" href="#Map_exists" title="(permalink)">exists(key)<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
-Returns whether a key-value exists for the given key.
+</p></div></div><div class="item"><a class="header" id="HashMap_set" href="#HashMap_set" title="(permalink)">set(key, val)</a><div class="content"><p>
+Adds a new key-value pair to the map or updates the value of an existing one.
+</p><p>
+As per <a href="#HashMap_capacity">capacity</a>, this may trigger a reallocation of the map.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_replace" href="#Map_replace" title="(permalink)">replace(key, value)<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
+</p></div></div><div class="item"><a class="header" id="HashMap_replace" href="#HashMap_replace" title="(permalink)">replace(key, value)<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
 Finds a key-value pair for the given key and replaces the value with a new one.
 </p><p>
 Returns <tt>true</tt> if the value was replaced,
 or <tt>false</tt> if the pair was not found.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_remove" href="#Map_remove" title="(permalink)">remove(key)<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
+</p></div></div><div class="item"><a class="header" id="HashMap_remove" href="#HashMap_remove" title="(permalink)">remove(key)<span class="ret-arrow">&#10140;</span>bool</a><div class="content"><p>
 Removes a key-value pair, returns whether successful
 (<tt>false</tt> if no pair with the given key existed).
 	 
-</p></div></div><div class="item"><a class="header" id="Map_set" href="#Map_set" title="(permalink)">set(key, val)</a><div class="content"><p>
-Adds a new key-value pair to the map or updates the value of an existing one.
-</p><p>
-As per <a href="#Map_capacity">capacity</a>, this may trigger a reallocation of the map.
-	 
-</p></div></div><div class="item"><a class="header" id="Map_iterator" href="#Map_iterator" title="(permalink)">iterator()<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
+</p></div></div><hr/><div class="item"><a class="header" id="HashMap_iterator" href="#HashMap_iterator" title="(permalink)">iterator()<span class="ret-arrow">&#10140;</span></a><div class="content"><p>
 
 	Creates and returns a new iterator for this map.
 	</p><p>
@@ -412,7 +505,7 @@ As per <a href="#Map_capacity">capacity</a>, this may trigger a reallocation of 
 	</p><p>
 	You would usually use it like so:
 	</p><pre class="gmlmd">
-<span class="kw">var</span> <span class="lv">map</span> <span class="op">=</span> <span class="kw">new</span> <a class="sf" href="#Map">Map</a><span class="op">(</span><span class="op">)</span><span class="op">;</span>
+<span class="kw">var</span> <span class="lv">map</span> <span class="op">=</span> <span class="kw">new</span> <span class="uf">Map</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
 <span class="lv">map</span><span class="op">.</span><span class="sf">set</span><span class="op">(</span><span class="st">"one"</span><span class="op">,</span> <span class="nu">1</span><span class="op">)</span><span class="op">;</span>
 <span class="lv">map</span><span class="op">.</span><span class="sf">set</span><span class="op">(</span><span class="nu">2</span><span class="op">,</span> <span class="st">"two"</span><span class="op">)</span><span class="op">;</span>
 <span class="kw">var</span> <span class="lv">it</span> <span class="op">=</span> <span class="lv">map</span><span class="op">.</span><span class="sf">iterator</span><span class="op">(</span><span class="op">)</span><span class="op">;</span>
@@ -420,18 +513,18 @@ As per <a href="#Map_capacity">capacity</a>, this may trigger a reallocation of 
     <span class="uf">trace</span><span class="op">(</span><span class="st">"iter"</span><span class="op">,</span> <span class="lv">it</span><span class="op">.</span><span class="fd">key</span><span class="op">,</span> <span class="st">"=&gt;"</span><span class="op">,</span> <span class="lv">it</span><span class="op">.</span><span class="fd">value</span><span class="op">)</span><span class="op">;</span>
 <span class="cb">}</span>
 <span class="co">// shorter: for (var it = map.iterator(); it.next();) {...}</span>
-</pre></div></div><div class="item"><a class="header" id="Map_keys" href="#Map_keys" title="(permalink)">keys()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
-Returns an array containing all keys in the map.<br/>Not ordered in a specific way, but consistent with <a href="#Map_values">values</a>.
+</pre></div></div><div class="item"><a class="header" id="HashMap_keys" href="#HashMap_keys" title="(permalink)">keys()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
+Returns an array containing all keys in the map.<br/>Not ordered in a specific way, but consistent with <a href="#HashMap_values">values</a>.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_values" href="#Map_values" title="(permalink)">values()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
-Returns an array containing all values in the map.<br/>Not ordered in a specific way, but consistent with <a href="#Map_keys">keys</a>.
+</p></div></div><div class="item"><a class="header" id="HashMap_values" href="#HashMap_values" title="(permalink)">values()<span class="ret-arrow">&#10140;</span>array</a><div class="content"><p>
+Returns an array containing all values in the map.<br/>Not ordered in a specific way, but consistent with <a href="#HashMap_keys">keys</a>.
 	 
-</p></div></div><div class="item"><a class="header" id="Map_toString" href="#Map_toString" title="(permalink)">toString()<span class="ret-arrow">&#10140;</span>string</a><div class="content"><p>
+</p></div></div><hr/><div class="item"><a class="header" id="HashMap_toString" href="#HashMap_toString" title="(permalink)">toString()<span class="ret-arrow">&#10140;</span>string</a><div class="content"><p>
 Returns a string representation of this map, in a somewhat JSON-looking
 (but not valid JSON) format - <tt>Map({ key1: value1, key2: value2, ... })</tt>
 	 
-</p></div></div><div class="item"><a class="header" id="Map_toStruct" href="#Map_toStruct" title="(permalink)">toStruct()<span class="ret-arrow">&#10140;</span>Map</a><div class="content"><p>
-Creates a new struct containing key-value pairs from this map.
+</p></div></div><div class="item"><a class="header" id="HashMap_toStruct" href="#HashMap_toStruct" title="(permalink)">toStruct()<span class="ret-arrow">&#10140;</span>struct</a><div class="content"><p>
+Returns a new struct containing key-value pairs from this map.
 	 
 </p></div></div></div></div><!--doc>-->
 </div></div></div>

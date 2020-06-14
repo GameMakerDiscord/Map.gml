@@ -9,3 +9,8 @@ The extension can be found on
 [itch.io](https://yellowafterlife.itch.io/map-gml)
 or [GitHub](https://github.com/GameMakerDiscord/Map.gml)
 ```
+```set dmdOrder
+LightMap
+StructMap
+HashMap
+```

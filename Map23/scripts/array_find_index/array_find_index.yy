@@ -6,7 +6,7 @@
     "path": "folders/Scripts (test project).yy",
   },
   "resourceVersion": "1.0",
-  "name": "assert_equals",
+  "name": "array_find_index",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -8,18 +8,13 @@ import gml.io.Buffer;
 /**
  * 
  * @author YellowAfterlife
- * @dmdPath Map
+ * @dmdPath HashMap
  */
-#if sfgml.modern
-@:native("Map")
-#else
-@:native("amap")
-#end
 @:nativeGen @:keep class HashMap {
 	// A vague port of https://github.com/petewarden/c_hashmap
 	extern private static inline var maxChainLen:Int = 8;
 	@:native("hashBuffer")
-	private static var buffer = new Buffer(32, Grow, 1);
+	private static var buffer = new Buffer(128, Grow, 1);
 	
 	private var _size:Int = 0;
 	/** size of hashes/keys/values */
@@ -42,35 +37,6 @@ import gml.io.Buffer;
 	}
 	
 	/**
-	 * Removes all key-value pairs from this map.
-	 */
-	@:doc public function clear():Void {
-		var i = _capacity;
-		var _hashes = _hashes;
-		var _keys = _keys;
-		var _values = _values;
-		while (--i >= 0) {
-			_hashes[i] = -1;
-			_keys[i] = 0;
-			_values[i] = 0;
-		}
-		_size = 0;
-	}
-	
-	/** Returns the current number of key-value pairs in the map. */
-	@:doc public function size():Int {
-		return _size;
-	}
-	/**
-	 * Returns the current map capacity - that is,
-	 * how many entries do the internal arrays hold.
-	 * A map is resized whenever size reaches half of capacity
-	 * or if a key-value pair cannot be fit due to a sufficient number of collisions.
-	 */
-	@:doc public function capacity():Int {
-		return _capacity;
-	}
-	/**
 	 * Returns a shallow copy of this map.
 	 */
 	@:doc public function copy():HashMap {
@@ -81,6 +47,44 @@ import gml.io.Buffer;
 		NativeArray.copyPart(m._values, 0, _values, 0, n);
 		NativeArray.copyPart(m._keys, 0, _keys, 0, n);
 		return m;
+	}
+	
+	/**
+	 * Removes all key-value pairs from this map.
+	 * @dmdSuffix ---
+	 */
+	@:doc public function clear():Void {
+		var i = _capacity;
+		var _hashes = _hashes;
+		var _keys = _keys;
+		var _values = _values;
+		while (--i >= 0) {
+			_hashes[i] = null;
+			_keys[i] = 0;
+			_values[i] = 0;
+		}
+		_size = 0;
+	}
+	
+	/** Returns whether this map contains no key-value pairs. */
+	@:doc public function empty():Bool {
+		return _size == 0;
+	}
+	
+	/** Returns the current number of key-value pairs in the map. */
+	@:doc public function size():Int {
+		return _size;
+	}
+	
+	/**
+	 * Returns the current map capacity - that is,
+	 * how many entries do the internal arrays hold.
+	 * A map is resized whenever size reaches half of capacity
+	 * or if a key-value pair cannot be fit due to a sufficient number of collisions.
+	 * @dmdSuffix ---
+	 */
+	@:doc public function capacity():Int {
+		return _capacity;
 	}
 	
 	extern inline function getImpl<T>(hash:Int, key:Any):Int {
@@ -121,6 +125,14 @@ import gml.io.Buffer;
 	}
 	
 	/**
+	 * Returns whether a key-value exists for the given key.
+	 */
+	@:doc public function exists(key:Any):Any {
+		var i = getImpl(hashOf(key), key);
+		return i >= 0;
+	}
+	
+	/**
 	 * Returns a value for the given key, or,
 	 * if there is no such key-value pair,
 	 */
@@ -128,41 +140,8 @@ import gml.io.Buffer;
 		var i = getImpl(hashOf(key), key);
 		return i >= 0 ? _values[i] : null;
 	}
-	/**
-	 * Returns whether a key-value exists for the given key.
-	 */
-	@:doc public function exists(key:Any):Any {
-		var i = getImpl(hashOf(key), key);
-		return i >= 0;
-	}
-	/**
-	 * Finds a key-value pair for the given key and replaces the value with a new one.
-	 * 
-	 * Returns `true` if the value was replaced,
-	 * or `false` if the pair was not found.
-	 */
-	@:doc public function replace(key:Any, value:Any):Bool {
-		var i = getImpl(hashOf(key), key);
-		if (i >= 0) {
-			_values[i] = value;
-			return true;
-		} else return false;
-	}
-	/**
-	 * Removes a key-value pair, returns whether successful
-	 * (`false` if no pair with the given key existed).
-	 */
-	@:doc public function remove(key:Any):Any {
-		var i = getImpl(hashOf(key), key);
-		if (i >= 0) {
-			_hashes[i] = null;
-			_keys[i] = 0;
-			_values[i] = 0;
-			_size -= 1;
-			return true;
-		} else return false;
-	}
 	
+	/** Doubles the capacity of the map and rearranges key-value pairs. */
 	function _rehash():Void {
 		var _oldCap = _capacity;
 		var _oldHashes = _hashes;
@@ -209,6 +188,8 @@ import gml.io.Buffer;
 		_values = _newValues;
 		_capacity = _newCap;
 	}
+	
+	/** Attempts to find a spot for a new key-value pair. */
 	private function _setPre(hash:Int, key:Any):Int {
 		var _capacity = _capacity;
 		if (_size >= _capacity / 2) {
@@ -247,6 +228,36 @@ import gml.io.Buffer;
 			index = _setPre(hash, key);
 		}
 		_values[index] = val;
+	}
+	
+	/**
+	 * Finds a key-value pair for the given key and replaces the value with a new one.
+	 * 
+	 * Returns `true` if the value was replaced,
+	 * or `false` if the pair was not found.
+	 */
+	@:doc public function replace(key:Any, value:Any):Bool {
+		var i = getImpl(hashOf(key), key);
+		if (i >= 0) {
+			_values[i] = value;
+			return true;
+		} else return false;
+	}
+	
+	/**
+	 * Removes a key-value pair, returns whether successful
+	 * (`false` if no pair with the given key existed).
+	 * @dmdSuffix ---
+	 */
+	@:doc public function remove(key:Any):Bool {
+		var i = getImpl(hashOf(key), key);
+		if (i >= 0) {
+			_hashes[i] = null;
+			_keys[i] = 0;
+			_values[i] = 0;
+			_size -= 1;
+			return true;
+		} else return false;
 	}
 	
 	/**
@@ -291,6 +302,7 @@ import gml.io.Buffer;
 	/**
 	 * Returns an array containing all values in the map.\
 	 * Not ordered in a specific way, but consistent with [keys].
+	 * @dmdSuffix ---
 	 */
 	@:doc public function values():Array<Any> {
 		var result = NativeArray.createEmpty(_size);
@@ -333,8 +345,10 @@ import gml.io.Buffer;
 		b.rewind();
 		return b.readString();
 	}
+	
 	/**
-	 * Creates a new struct containing key-value pairs from this map.
+	 * Returns a new struct containing key-value pairs from this map.
+	 * @return struct
 	 */
 	@:doc public function toStruct():Dynamic {
 		var obj:Dynamic = {};
@@ -351,12 +365,7 @@ import gml.io.Buffer;
 	public static inline function main() {}
 }
 
-#if sfgml.modern
-@:native("MapIterator")
-#else
-@:native("amap_iter")
-#end
- @:nativeGen @:keep class HashMapIterator {
+@:nativeGen @:keep class HashMapIterator {
 	public var key:Any;
 	public var value:Any;
 	public var map:HashMap;

@@ -1,0 +1,22 @@
+-debug
+-lib sfhx
+-lib sfgml
+-cp src
+-D sfgml_version=2.3
+-D sfgml_local=l_
+-dce full
+
+--each
+
+--main HashMap
+--js Map23/scripts/HashMap/HashMap.gml._
+
+--next
+
+--main LightMap
+--js Map23/scripts/LightMap/LightMap.gml._
+
+--next
+
+--main StructMap
+--js Map23/scripts/StructMap/StructMap.gml._
